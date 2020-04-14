@@ -1,0 +1,48 @@
+pipeline {
+    agent {
+        kubernetes {
+            defaultContainer 'helmfile'
+            yaml """
+kind: Pod
+metadata:
+  name: helmfile
+spec:
+  containers:
+  - name: busybox
+    image: busybox:1.31
+    imagePullPolicy: IfNotPresent
+    command:
+    - cat
+    tty: true
+  - name: helmfile
+    image: kyounger/helmfile:0.109.0
+    imagePullPolicy: IfNotPresent
+    command:
+    - cat
+    tty: true
+"""
+        }
+    }
+    environment {
+        TEST="test"
+    }
+    stages {
+        stage('Helm Upgrade') {
+            steps {
+                checkout scm
+                container(name: 'helmfile') {
+                    withCredentials([file(credentialsId: 'kubeconfig-hf-installer', variable: 'KUBECONFIG')]) {
+                        sh '''
+                            export KUBECONFIG
+                            helm version
+                            helm plugin list
+                            helm list -A
+                            helmfile --no-color apply
+                            helm list -A
+                        '''
+                    }
+                }
+            }
+        }
+    }
+}

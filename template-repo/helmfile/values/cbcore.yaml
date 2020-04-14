@@ -1,0 +1,4 @@
+OperationsCenter:
+  Platform: gke
+  HostName: ""
+  Protocol: http

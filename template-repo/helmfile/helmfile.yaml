@@ -1,0 +1,29 @@
+repositories:
+- name: stable
+  url: https://kubernetes-charts.storage.googleapis.com
+- name: cloudbees
+  url: https://charts.cloudbees.com/public/cloudbees
+helmDefaults:
+  # wait for k8s resources via --wait. (default false)
+  wait: true
+  # time in seconds to wait for any individual Kubernetes operation (like Jobs for hooks, and waits on pod/pvc/svc/deployment readiness) (default 300)
+  timeout: 600
+  # performs pods restart for the resource if applicable (default false)
+  recreatePods: true
+  # limit the maximum number of revisions saved per release. Use 0 for no limit. (default 10) 
+  historyMax: 0
+releases:
+  - name: nginx-ingress
+    namespace: nginx-ingress
+    chart: stable/nginx-ingress
+    version: 1.4.0
+    values:
+    - values/nginx-ingress.yaml
+  - name: cbcore
+    namespace: cloudbees
+    chart: cloudbees/cloudbees-core
+    version: 3.10.0
+    values:
+    - values/cbcore.yaml
+    needs:
+    - nginx-ingress/nginx-ingress

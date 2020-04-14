@@ -15,4 +15,6 @@ gcloud iam service-accounts keys create ./creds/key.json --iam-account=$SA_NAME@
 I store a copy of my license key/cert in `./license`. This dir is ignored by git.
 
 ## Create initial empty dir
-Be sure to run `mkdir repo-100` in the room of this repo before running `./new-instance.sh`
+* Be sure to run `mkdir repo-100` in the room of this repo before running `./new-instance.sh`
+* Note that `kyounger` is still hardcoded into this repo. I need to refactor the tf and scripts to abstract it and make it easily overridden.
+
