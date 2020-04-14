@@ -1,4 +1,6 @@
 repo-*/
 creds/
 license/
-script-*.txt
+scripts/
+.terraform/*
+myplan

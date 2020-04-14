@@ -1,5 +1,8 @@
 creds/*
+*/.terraform/*
 .terraform/*
 myplan
+*/myplan
 *kubeconfig*.yaml
 scripts/*
+helmfile/

@@ -3,5 +3,4 @@ creds/*
 */.terraform/*
 myplan
 kubeconfig*.yaml
-kubernetes_get_service_account_kubeconfig.sh
 autoconfigure.sh
